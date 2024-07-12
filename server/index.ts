@@ -3,13 +3,18 @@ import dotenv from 'dotenv';
 dotenv.config();
 import  connectDB  from './config/db'
 import authRouter from './routes/auth.routes';
+import expenseRouter  from "./routes/expense.routes"
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = process.env.PORT;
 app.use (express.json());
+app.use(cookieParser())
 
-
+// routes
 app.use('/api/auth',authRouter);
+app.use("/api/expense", expenseRouter);
+
 
 app.get('/', (req : Request, res : Response) => {
     res.send('hello rijo');
