@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import Expense from "../models/expense.model";
 import mongoose from "mongoose";
+import User from "../models/user.model";
 
 export const getExpenses = async (req: Request, res: Response) => {
   const { userId } = req.user as any;
@@ -54,3 +55,16 @@ export const deleteExpense = async (req: Request, res: Response) => {
     return res.status(500).json({ message: err.message });
   }
 };
+
+
+export const setLimit = async (req: Request, res: Response) => {
+  const { userId } = req.user as any;
+const {limit} = req.body;
+try{
+  const user = await User.findByIdAndUpdate( userId,{ limit });
+  return res.status(200).json({ message: "Limit updated successfully" });  
+}
+catch(err: any){
+  return res.status(500).json({ message: err.message });
+}
+}
