@@ -12,9 +12,9 @@ export default function ThemeSwitch() {
       onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
       variant="default"
       size="xl"
-      aria-label="Toggle color scheme"
+      aria-label="Toggle color scheme" radius="xl" 
     >
-      <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+      <IconSun className={cx(classes.icon, classes.light)} stroke={1.5}  />
       <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
     </ActionIcon>
   );
