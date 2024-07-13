@@ -22,6 +22,7 @@ export default function Hero() {
           <Title className={`${classes.title}`}>
             Welcome to <span style={{ color: "#00b5ff" }}>Expense Tracker</span>
           </Title>
+
           <Text c="dimmed" mt="md">
             Keep your finances in check with our comprehensive expense tracker.
             Add your expenses, set monthly limits, and receive alerts when you
