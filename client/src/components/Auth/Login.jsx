@@ -11,7 +11,7 @@ import {
   Box,
   LoadingOverlay,
 } from "@mantine/core";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -37,7 +37,7 @@ const schema = yup.object().shape({
 export default function Login() {
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     register,
     handleSubmit,
