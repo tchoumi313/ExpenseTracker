@@ -15,20 +15,14 @@ const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-app.use((0, cors_1.default)({
+const corsOptions = {
     origin: "https://expense-log.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
-    allowedHeaders: [
-        "Content-Type",
-        "Authorization",
-        "X-Requested-With",
-        "Accept",
-        "Origin",
-    ],
-}));
-// Handle preflight requests
-app.options("*", (0, cors_1.default)());
+};
+app.use((0, cors_1.default)(corsOptions));
+// // Handle preflight requests
+// app.options("*", cors());
 // routes
 app.use("/api/auth", auth_routes_1.default);
 app.use("/api/expense", expense_routes_1.default);
