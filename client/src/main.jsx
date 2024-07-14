@@ -8,10 +8,8 @@ import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <MantineProvider>
+    <MantineProvider >
       <App />
-
-    
       <Toaster position="bottom-center"  duration={500} />
     </MantineProvider>
   </React.StrictMode>
