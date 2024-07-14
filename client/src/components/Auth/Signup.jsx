@@ -14,7 +14,7 @@ import {
   LoadingOverlay,
 } from "@mantine/core";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -40,7 +40,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 export default function SignUp() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {
     register,
