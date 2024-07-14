@@ -1,5 +1,4 @@
 import { Group, Button, Text, Box } from "@mantine/core";
-//   import { MantineLogo } from '@mantinex/mantine-logo';
 import classes from "./Header.module.css";
 import ThemeSwitch from "../theme/ThemeSwitch";
 import { Link } from "react-router-dom";
