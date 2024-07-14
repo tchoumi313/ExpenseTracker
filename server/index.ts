@@ -1,27 +1,42 @@
-import express, { Request, Response } from 'express';
-import dotenv from 'dotenv';
+import express, { Request, Response } from "express";
+import dotenv from "dotenv";
 dotenv.config();
-import  connectDB  from './config/db'
-import authRouter from './routes/auth.routes';
-import expenseRouter  from "./routes/expense.routes"
-import cookieParser from 'cookie-parser';
+import connectDB from "./config/db";
+import authRouter from "./routes/auth.routes";
+import expenseRouter from "./routes/expense.routes";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT;
-app.use (express.json());
-app.use(cookieParser())
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "https://expense-log.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+     allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+  })
+);
+// Handle preflight requests
+app.options("*", cors());
 
 // routes
-app.use('/api/auth',authRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/expense", expenseRouter);
 
-
-app.get('/', (req : Request, res : Response) => {
-    res.send('hello rijo');
+app.get("/", (req: Request, res: Response) => {
+  res.send("hello rijo");
 });
 
 app.listen(port, () => {
-    connectDB();
-    console.log(`Example app listening at http://localhost:${port}`);
+  connectDB();
+  console.log(`Example app listening at http://localhost:${port}`);
 });
-

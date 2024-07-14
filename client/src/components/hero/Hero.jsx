@@ -12,6 +12,7 @@ import {
 import { IconCheck } from "@tabler/icons-react";
 import image from "/hero.svg";
 import classes from "./Hero.module.css";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -21,6 +22,7 @@ export default function Hero() {
           <Title className={`${classes.title}`}>
             Welcome to <span style={{ color: "#00b5ff" }}>Expense Tracker</span>
           </Title>
+
           <Text c="dimmed" mt="md">
             Keep your finances in check with our comprehensive expense tracker.
             Add your expenses, set monthly limits, and receive alerts when you
@@ -42,25 +44,31 @@ export default function Hero() {
             }
           >
             <List.Item>
-              <b>Track Expenses</b> – Easily add and categorize your expenses to
-              monitor your spending habits.
+              <b>Track Expenses </b> &ndash; Easily add and categorize your
+              expenses to monitor your spending habits.
             </List.Item>
             <List.Item>
-              <b>Set Monthly Limits</b> – Define a monthly budget and get
-              notified when you're close to reaching it.
+              <b>Set Monthly Limits </b> &ndash; Define a monthly budget and get
+              notified when you&#39;re close to reaching it.
             </List.Item>
             <List.Item>
-              <b>Secure Authentication</b> – Sign in securely and ensure your
-              data is protected.
+              <b>Secure Authentication </b> &ndash; Sign in securely and ensure
+              your data is protected.
             </List.Item>
             <List.Item>
-              <b>User-Friendly Interface</b> – Enjoy a smooth and intuitive
-              experience.
+              <b>User-Friendly Interface </b> &ndash; Enjoy a smooth and
+              intuitive experience.
             </List.Item>
           </List>
 
           <Group mt={30}>
-            <Button radius="xl" size="md" className={classes.control}>
+            <Button
+              radius="xl"
+              size="md"
+              className={classes.control}
+              component={Link}
+              to="/login"
+            >
               Get Started
             </Button>
           </Group>
