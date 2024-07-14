@@ -72,7 +72,6 @@ export default function SignUp() {
       align="center"
       direction="row"
       wrap="wrap"
-      p={10}
       style={{
         minHeight: "90svh",
       }}
@@ -84,7 +83,7 @@ export default function SignUp() {
           visible={loading}
           loaderProps={{ color: "blue", type: "bars" }}
         />
-        <Paper radius="xl" p="xl" withBorder shadow="xl" w={400}>
+        <Paper radius="xl" p="xl" withBorder shadow="xl" w={{ md: 400 }}>
           <Text size="xl" fw={600} mb={10} c="blue" ta={"center"}>
             Sign Up
           </Text>
