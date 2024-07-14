@@ -63,13 +63,14 @@ export default function Login() {
   };
   return (
     <Flex
-      h="90vh"
       gap="xs"
       justify="center"
       align="center"
       direction="row"
       wrap="wrap"
-      p={10}
+      style={{
+        minHeight: "90svh",
+      }}
     >
       <Box pos="relative">
         <LoadingOverlay
@@ -78,7 +79,7 @@ export default function Login() {
           visible={loading}
           loaderProps={{ color: "blue", type: "bars" }}
         />
-        <Paper radius="xl" p="xl" withBorder shadow="xl" w={400}>
+        <Paper radius="xl" p="xl" withBorder shadow="xl" w={{ md: 400 }}>
           <Text size="xl" fw={600} mb={10} c="blue" ta={"center"}>
             Login
           </Text>
@@ -108,6 +109,7 @@ export default function Login() {
                 size="xs"
                 component={Link}
                 to="/signup"
+                
               >
                 Don&#39;t have an account? Register
               </Anchor>
