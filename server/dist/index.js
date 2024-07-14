@@ -19,6 +19,13 @@ app.use((0, cors_1.default)({
     origin: "https://expense-log.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
+    allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+        "Origin",
+    ],
 }));
 // routes
 app.use("/api/auth", auth_routes_1.default);
