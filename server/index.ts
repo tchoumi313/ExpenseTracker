@@ -25,6 +25,8 @@ app.use(
     ],
   })
 );
+// Handle preflight requests
+app.options("*", cors());
 
 // routes
 app.use("/api/auth", authRouter);

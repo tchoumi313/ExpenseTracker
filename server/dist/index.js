@@ -27,6 +27,8 @@ app.use((0, cors_1.default)({
         "Origin",
     ],
 }));
+// Handle preflight requests
+app.options("*", (0, cors_1.default)());
 // routes
 app.use("/api/auth", auth_routes_1.default);
 app.use("/api/expense", expense_routes_1.default);
