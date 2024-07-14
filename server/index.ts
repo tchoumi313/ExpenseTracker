@@ -7,6 +7,7 @@ import expenseRouter from "./routes/expense.routes";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+connectDB();
 const app = express();
 const port = process.env.PORT;
 app.use(express.json());
@@ -38,6 +39,5 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  connectDB();
   console.log(`Example app listening at http://localhost:${port}`);
 });

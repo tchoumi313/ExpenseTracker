@@ -11,6 +11,7 @@ const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const expense_routes_1 = __importDefault(require("./routes/expense.routes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
+(0, db_1.default)();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use(express_1.default.json());
@@ -36,6 +37,5 @@ app.get("/", (req, res) => {
     res.send("hello rijo");
 });
 app.listen(port, () => {
-    (0, db_1.default)();
     console.log(`Example app listening at http://localhost:${port}`);
 });
