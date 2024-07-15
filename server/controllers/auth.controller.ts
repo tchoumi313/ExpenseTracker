@@ -20,7 +20,7 @@ export const signUp = async (req: Request , res: Response) => {
         email,
         password:hashedPassword,
     })
-    const token = generateToken(newUser._id,res);
+    const token =  generateToken(newUser._id,res);
     await newUser.save();
     return res.status(200).json({message:"Signup successful", token});
     }

@@ -10,6 +10,8 @@ const generateToken = (userId:Types.ObjectId, res:Response) => {
     res.cookie("token", token, {
         maxAge: 15 * 24 * 60 * 60 * 1000, // MS
     })
+
+return token;
 }
 
 export default generateToken;
