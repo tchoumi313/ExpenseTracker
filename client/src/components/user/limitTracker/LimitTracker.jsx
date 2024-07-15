@@ -21,27 +21,16 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function LimitTracker() {
-  const { expenseStats,fetchExpenseStats }= useApi();
+  const { expenseStats,fetchExpenseStats ,monthIndex ,year }= useApi();
   const [opened, { open, close }] = useDisclosure(false);
    // const [limit, setLimit] = useState([]);
 
   const dispatch = useDispatch();
 
-  // const fetchExpenseStats = async () => {
-  //   let month = 7;
-  //   let year = 2024;
-  //   try {
-  //     const res = await axiosInstance.get(`/api/expense/stats?month=${month}&year=${year}`, { withCredentials: true });
-  //     setExpenseStats(res.data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   };
-  // }
-  let month = 7;
-   let year = 2024;
+ 
   useEffect(() => {
-    fetchExpenseStats( month,year);
-  }, []);
+    fetchExpenseStats();
+  }, [monthIndex, year]);
 
 
   //  handle the limit of the user function
