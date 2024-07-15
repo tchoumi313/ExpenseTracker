@@ -6,15 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@redux/auth/authSlice";
 
 export default function Header() {
-  const token = useSelector((store) => store.auth.token);
-  console.log(token, "token");
-  const dispatch = useDispatch();
+  // const token = useSelector((store) => store.auth.token);
+  // console.log(token, "token");
+  // const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    console.log("logout");
-    localStorage.removeItem("token");
-    dispatch(logout());
-  };
+  // const handleLogout = () => {
+  //   console.log("logout");
+  //   localStorage.removeItem("token");
+  //   dispatch(logout());
+  // };
   return (
     <Box pb={5}>
       <header className={classes.header}>
@@ -31,15 +31,15 @@ export default function Header() {
           <Group justify="space-end" h="100%">
             <ThemeSwitch />
 
-            {token ? (
+            {/* {token ? (
               <Button size="md" radius="xl" onClick={handleLogout}>
                 Logout
               </Button>
-            ) : (
+            ) : ( */}
               <Button size="md" radius="xl" component={Link} to="/login">
                 Login
               </Button>
-            )}
+            {/* )} */}
           </Group>
         </Group>
       </header>

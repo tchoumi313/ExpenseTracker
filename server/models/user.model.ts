@@ -5,6 +5,8 @@ interface UserType {
   email: string;
   password: string;
   limit: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const userSchema = new mongoose.Schema<UserType>({

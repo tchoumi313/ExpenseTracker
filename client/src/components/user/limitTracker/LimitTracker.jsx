@@ -14,6 +14,8 @@ import FloatingForm from "../../floatingForm/FloatingForm";
 import { useDisclosure } from "@mantine/hooks";
 import { useDispatch } from "react-redux";
 import { setName } from  "@redux/edit/editSlice";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../config/axios";
 
 const data = [
   { label: "Spent", count: "5600", part: 59, color: "#47d6ab" },
@@ -23,7 +25,18 @@ const data = [
 
 export default function LimitTracker() {
   const [opened, { open, close }] = useDisclosure(false);
+  const [stats , setStats] = useState([]);
   const dispatch = useDispatch();
+  useEffect(() => {
+    let month = 7;
+    let year = 2024;
+    const getStats = async () => {
+     const data = await axiosInstance.get(`/api/expense/stats?month=${month}&year=${year}`,{withCredentials: true});
+     setStats(data);
+    };
+    getStats();
+   }, []);
+   
 
   const segments = data.map((segment) => (
     <Progress.Section
@@ -35,7 +48,7 @@ export default function LimitTracker() {
     </Progress.Section>
   ));
 
-  const descriptions = data.map((stat) => (
+  // const descriptions = data.map((stat) => (
     <Box
       key={stat.label}
       style={{ borderBottomColor: stat.color }}
@@ -46,18 +59,19 @@ export default function LimitTracker() {
       </Text>
 
       <Group justify="space-between" align="flex-end" gap={0}>
-        <Text fw={700}>{stat.count}</Text>
+        <Text fw={700}>{stats.limit.limit}</Text>
         <Text c={stat.color} fw={700} size="sm" className={classes.statCount}>
           {stat.part}%
         </Text>
       </Group>
     </Box>
-  ));
 
   const handleLimit = () => {
     dispatch(setName("limit"));
     open();
   };
+
+ 
 
   return (
     <>

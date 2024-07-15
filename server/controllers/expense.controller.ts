@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import Expense from "../models/expense.model";
+import Expense, { ExpenseType } from "../models/expense.model";
 import mongoose from "mongoose";
 import User from "../models/user.model";
 
@@ -59,12 +59,31 @@ export const deleteExpense = async (req: Request, res: Response) => {
 
 export const setLimit = async (req: Request, res: Response) => {
   const { userId } = req.user as any;
-const {limit} = req.body;
-try{
-  const user = await User.findByIdAndUpdate( userId,{ limit });
-  return res.status(200).json({ message: "Limit updated successfully" });  
+  const { limit } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(userId, { limit });
+    return res.status(200).json({ message: "Limit updated successfully" });
+  }
+  catch (err: any) {
+    return res.status(500).json({ message: err.message });
+  }
 }
-catch(err: any){
-  return res.status(500).json({ message: err.message });
-}
+
+
+export const getExpenseStats = async (req: Request, res: Response) => {
+  const { userId } = req.user as any;
+  const { month, year } = req.query as any;
+
+  try {
+    const limit = await User.findById(userId).select('limit');
+    const expenseByMonth =  await Expense.find({ user: userId, createdAt: { $gte: new Date(year, month - 1, 1), $lt: new Date(year, month, 0) } })
+    const totalExpense = expenseByMonth.reduce((acc, curr) => {
+      return acc + curr.amount;
+    }, 0);
+    res.status(200).json({ totalExpense, limit });
+
+  }
+  catch (err: any) {
+    return res.status(500).json({ message: err.message });
+  }
 }

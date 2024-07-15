@@ -12,12 +12,26 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 
 import classes from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeSwitch from "../../theme/ThemeSwitch";
+import toast from "react-hot-toast";
+import axiosInstance from "../../../config/axios";
 
 export default function UserHeader() {
+  const navigate = useNavigate();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
+
+  const handleLogout =  async() => {
+    try {
+      const response = await axiosInstance.post("/api/auth/logout"," " ,{withCredentials:true})
+    toast.success(response.data.message)
+    navigate("/", { replace: true })
+    } catch (error) {
+      console.log(error.message)
+      toast.error(error.response.data.message)
+    }
+  }
 
   return (
     <Box>
@@ -35,7 +49,7 @@ export default function UserHeader() {
           <Flex justify="space-end" h="100%" gap="md" align={"center"}>
             <ThemeSwitch />
 
-            <Button radius="xl" display={{ base: "none", sm: "block" }}>
+            <Button radius="xl"  onClick={handleLogout} display={{ base: "none", sm: "block" }}>
               Logout
             </Button>
             <Burger
@@ -60,7 +74,7 @@ export default function UserHeader() {
           {/* <Divider my="sm" /> */}
 
           <Stack justify="center" pb="xl" px="md">
-            <Button radius="xl">Log out</Button>
+            <Button radius="xl" onClick={handleLogout}>Log out</Button>
           </Stack>
         </ScrollArea>
       </Drawer>

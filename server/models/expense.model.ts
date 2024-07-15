@@ -1,9 +1,11 @@
 import mongoose, { Types } from "mongoose";
 
-interface ExpenseType {
+ export  interface ExpenseType {
   user: Types.ObjectId;
   name: string;
   amount: number;
+  createdAt: Date;
+    updatedAt: Date;
 }
 
 const expenseSchema = new mongoose.Schema<ExpenseType>(
@@ -15,5 +17,6 @@ const expenseSchema = new mongoose.Schema<ExpenseType>(
   { timestamps: true }
 );
 
-const Expense = mongoose.model<ExpenseType>("Expense", expenseSchema);
+const Expense = mongoose.model("Expense", expenseSchema);
 export default Expense;
+
