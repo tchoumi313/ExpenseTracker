@@ -10,7 +10,8 @@ import {
 } from "react-router-dom";
 import UserLayout from "./Layouts/UserLayout";
  import UserHome from "./pages/UserHome";
-
+import FloatingForm from "./components/floatingForm/FloatingForm";
+ 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -22,6 +23,7 @@ function App() {
         </Route>
         <Route element={<UserLayout />}>
           <Route path="/home" element={<UserHome />} />
+          <Route path="/check" element={<FloatingForm />} />
            
         </Route>
       </Route>
