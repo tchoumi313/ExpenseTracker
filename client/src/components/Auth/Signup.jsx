@@ -21,7 +21,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axiosInstance from "../../config/axios";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { setToken } from "@redux/auth/authSlice";
+ 
 const schema = yup.object().shape({
   name: yup.string().required("Enter your name"),
   email: yup
@@ -40,6 +42,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 export default function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {
@@ -57,8 +60,10 @@ export default function SignUp() {
         withCredentials: true,
       });
       toast.success(res.data.message);
-      navigate("/home");
       setLoading(false);
+       dispatch(setToken(res.data.token));
+       localStorage.setItem("token", res.data.token);
+      navigate("/home");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
