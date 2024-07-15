@@ -11,4 +11,5 @@ expenseRouter.get("/", protectRoute_1.default, expense_controller_1.getExpenses)
 expenseRouter.post("/create", protectRoute_1.default, expense_controller_1.createExpense);
 expenseRouter.delete("/:id", protectRoute_1.default, expense_controller_1.deleteExpense);
 expenseRouter.patch('/limit', protectRoute_1.default, expense_controller_1.setLimit);
+expenseRouter.get("/stats", protectRoute_1.default, expense_controller_1.getExpenseStats);
 exports.default = expenseRouter;
