@@ -20,7 +20,7 @@ export default function FloatingButton() {
         {opened ? <IconX size={30} /> : <IconPlus size={30} />}
       </ActionIcon>
       <Modal opened={opened} onClose={close} centered radius="xl">
-        <FloatingForm />
+        <FloatingForm  onClose={close}/>
       </Modal>
     </Affix>
   );
