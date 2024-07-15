@@ -60,37 +60,38 @@ export default function LimitTracker() {
   };
 
   return (
-    <Paper withBorder p="md" radius="md">
-      <div
-        style={{ padding: "10px", display: "flex", justifyContent: "center" }}
-      >
-        <MonthPicker />
-      </div>
-      <Progress.Root
-        size={34}
-        classNames={{ label: classes.progressLabel }}
-        mt={40}
-      >
-        {segments}
-      </Progress.Root>
-      <SimpleGrid cols={{ base: 1, xs: 3 }} mt="xl">
-        {descriptions}
-      </SimpleGrid>
-      {/* edit button */}
-      <Button
-        mt="xl"
-        variant="outline"
-        radius="md"
-        size="md"
-        w={{ base: "100%", md: "auto" }}
-        onClick={handleLimit}
-      >
-        Edit Limit
-      </Button>
-
+    <>
+      <Box  p="md" radius="md">
+        <div
+          style={{ padding: "10px", display: "flex", justifyContent: "center" }}
+        >
+          <MonthPicker />
+        </div>
+        <Progress.Root
+          size={34}
+          classNames={{ label: classes.progressLabel }}
+          mt={40}
+        >
+          {segments}
+        </Progress.Root>
+        <SimpleGrid cols={{ base: 1, xs: 3 }} mt="xl">
+          {descriptions}
+        </SimpleGrid>
+        {/* edit button */}
+        <Button
+          mt="xl"
+          variant="outline"
+          radius="md"
+          size="md"
+          w={{ base: "100%", md: "auto" }}
+          onClick={handleLimit}
+        >
+          Edit Limit
+        </Button>
+      </Box>
       <Modal opened={opened} onClose={close} centered radius="xl">
-        <FloatingForm />
+        <FloatingForm onClose={close} />
       </Modal>
-    </Paper>
+    </>
   );
 }
