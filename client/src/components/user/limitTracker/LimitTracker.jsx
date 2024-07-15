@@ -1,3 +1,5 @@
+import classes from "./LimitTracker.module.css";
+import MonthPicker from "../monthPicker/MonthPicker";
 import {
   Progress,
   Box,
@@ -6,9 +8,12 @@ import {
   Paper,
   SimpleGrid,
   Button,
+  Modal,
 } from "@mantine/core";
-import classes from "./LimitTracker.module.css";
-import MonthPicker from "../monthPicker/MonthPicker";
+import FloatingForm from "../../floatingForm/FloatingForm";
+import { useDisclosure } from "@mantine/hooks";
+import { useDispatch } from "react-redux";
+import { setName } from  "@redux/edit/editSlice";
 
 const data = [
   { label: "Spent", count: "5600", part: 59, color: "#47d6ab" },
@@ -17,6 +22,9 @@ const data = [
 ];
 
 export default function LimitTracker() {
+  const [opened, { open, close }] = useDisclosure(false);
+  const dispatch = useDispatch();
+
   const segments = data.map((segment) => (
     <Progress.Section
       value={segment.part}
@@ -46,6 +54,11 @@ export default function LimitTracker() {
     </Box>
   ));
 
+  const handleLimit = () => {
+    dispatch(setName("limit"));
+    open();
+  };
+
   return (
     <Paper withBorder p="md" radius="md">
       <div
@@ -64,9 +77,20 @@ export default function LimitTracker() {
         {descriptions}
       </SimpleGrid>
       {/* edit button */}
-      <Button mt="xl" variant="outline" radius="md" size="md" w={{ base: "100%", md: "auto" }}  >
+      <Button
+        mt="xl"
+        variant="outline"
+        radius="md"
+        size="md"
+        w={{ base: "100%", md: "auto" }}
+        onClick={handleLimit}
+      >
         Edit Limit
       </Button>
+
+      <Modal opened={opened} onClose={close} centered radius="xl">
+        <FloatingForm />
+      </Modal>
     </Paper>
   );
 }
