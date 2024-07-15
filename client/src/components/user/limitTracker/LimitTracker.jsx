@@ -1,5 +1,6 @@
 import classes from "./LimitTracker.module.css";
 import MonthPicker from "../monthPicker/MonthPicker";
+import {useApi} from "../../../context/ApiContext.jsx"
 import {
   Progress,
   Box,
@@ -16,27 +17,30 @@ import { useDispatch } from "react-redux";
 import { setName } from "@redux/edit/editSlice";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../config/axios";
+import { useNavigate } from "react-router-dom";
 
 
 export default function LimitTracker() {
+  const { expenseStats,fetchExpenseStats }= useApi();
   const [opened, { open, close }] = useDisclosure(false);
-  const [expenseStats, setExpenseStats] = useState([]);
-  // const [limit, setLimit] = useState([]);
+   // const [limit, setLimit] = useState([]);
 
   const dispatch = useDispatch();
 
-  const fetchExpenseStats = async () => {
-    let month = 6;
-    let year = 2024;
-    try {
-      const res = await axiosInstance.get(`/api/expense/stats?month=${month}&year=${year}`, { withCredentials: true });
-      setExpenseStats(res.data);
-    } catch (error) {
-      console.log(error.message);
-    };
-  }
+  // const fetchExpenseStats = async () => {
+  //   let month = 7;
+  //   let year = 2024;
+  //   try {
+  //     const res = await axiosInstance.get(`/api/expense/stats?month=${month}&year=${year}`, { withCredentials: true });
+  //     setExpenseStats(res.data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   };
+  // }
+  let month = 7;
+   let year = 2024;
   useEffect(() => {
-    fetchExpenseStats();
+    fetchExpenseStats( month,year);
   }, []);
 
 

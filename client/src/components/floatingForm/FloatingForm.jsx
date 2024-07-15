@@ -5,7 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 import axiosInstance from "../../config/axios";
-
+import { useApi } from "../../context/ApiContext.jsx";
+ 
 const expenseSchema = yup.object().shape({
   name: yup
     .string()
@@ -26,7 +27,8 @@ const limitSchema = yup.object().shape({
 });
 
 export default function FloatingForm({ onClose }) {
-  const option = useSelector((store) => store.edit.name);
+  const { fetchExpenseStats } = useApi();
+   const option = useSelector((store) => store.edit.name);
   const {
     register,
     handleSubmit,
@@ -41,16 +43,18 @@ export default function FloatingForm({ onClose }) {
      if (option === "limit") {
        res = await axiosInstance.patch("/api/expense/limit", data, {
          withCredentials: true,
+         
        });
-     } else {
+      } else {
        res = await axiosInstance.post("/api/expense/create", data, {
          withCredentials: true,
        });
-     }
-     console.log(res, "from onsubmti flotting form");
-     toast.success(res.data.message);
+      }
+      toast.success(res?.data?.message);
+     fetchExpenseStats();
      onClose();
-   } catch (err) {
+     
+    } catch (err) {
      console.log(err, "from onsubmti flotting form");
      toast.error(err.response.data.message);
    }
