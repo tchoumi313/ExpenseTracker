@@ -75,12 +75,12 @@ export const getExpenseStats = async (req: Request, res: Response) => {
   const { month, year } = req.query as any;
 
   try {
-    const limit = await User.findById(userId).select('limit');
+    const userLimit = await User.findById(userId).select('limit');
     const expenseByMonth =  await Expense.find({ user: userId, createdAt: { $gte: new Date(year, month - 1, 1), $lt: new Date(year, month, 0) } })
     const totalExpense = expenseByMonth.reduce((acc, curr) => {
       return acc + curr.amount;
     }, 0);
-    res.status(200).json({ totalExpense, limit });
+    res.status(200).json({ totalExpense, limit: userLimit?.limit });
 
   }
   catch (err: any) {
