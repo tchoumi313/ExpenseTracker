@@ -11,7 +11,9 @@ const generateToken = (userId:Types.ObjectId, res:Response) => {
         maxAge: 15 * 24 * 60 * 60 * 1000, // MS
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: "strict",
+        domain : ".vercel.app",
+
     })
 
 return token;
