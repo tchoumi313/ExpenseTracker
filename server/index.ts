@@ -13,33 +13,33 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "https://expense-log.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "Accept",
-      "Origin",
-    ],
-  })
-);
-// Handle preflight requests
-app.options("*", cors(
-  {
-    origin: true,
-    credentials: true,
-  }
-));
 // app.use(
 //   cors({
-//     origin: true,
+//     origin: "https://expense-log.vercel.app",
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
 //     credentials: true,
+//     allowedHeaders: [
+//       "Content-Type",
+//       "Authorization",
+//       "X-Requested-With",
+//       "Accept",
+//       "Origin",
+//     ],
 //   })
 // );
+// Handle preflight requests
+// app.options("*", cors(
+//   {
+//     origin: true,
+//     credentials: true,
+//   }
+// ));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 // routes
 app.use("/api/auth", authRouter);
