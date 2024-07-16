@@ -21,7 +21,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axiosInstance from "../../config/axios";
 import { useState } from "react";
- 
+import {setToken} from "../../redux/auth/authSlice";
+import { useDispatch } from "react-redux";
+  
 const schema = yup.object().shape({
   name: yup.string().required("Enter your name"),
   email: yup
@@ -40,6 +42,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 export default function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {
@@ -56,8 +59,12 @@ export default function SignUp() {
       const res = await axiosInstance.post("api/auth/signup", data, {
         withCredentials: true,
       });
+
+      dispatch(setToken(res.data.token));
+      a
       toast.success(res.data.message);
       setLoading(false);
+      axiosInstance.defaults.headers.common["Authorization"] =  `Bearer ${res.data.token}`;
       navigate("/home");
     } catch (err) {
       console.log(err);
