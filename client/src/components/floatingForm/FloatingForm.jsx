@@ -6,7 +6,7 @@ import * as yup from "yup";
 import toast from "react-hot-toast";
 import axiosInstance from "../../config/axios";
 import { useApi } from "../../context/ApiContext.jsx";
- 
+
 const expenseSchema = yup.object().shape({
   name: yup
     .string()
@@ -27,8 +27,9 @@ const limitSchema = yup.object().shape({
 });
 
 export default function FloatingForm({ onClose }) {
-  const { fetchExpenseStats } = useApi();
-   const option = useSelector((store) => store.edit.name);
+  const { fetchExpenseStats, fetchExpenseItems, loading, setLoading } =
+    useApi();
+  const option = useSelector((store) => store.edit.name);
   const {
     register,
     handleSubmit,
@@ -37,28 +38,31 @@ export default function FloatingForm({ onClose }) {
     resolver: yupResolver(option === "limit" ? limitSchema : expenseSchema),
   });
 
- const onSubmit = async (data) => {
-   let res;
-   try {
-     if (option === "limit") {
-       res = await axiosInstance.patch("/api/expense/limit", data, {
-         withCredentials: true,
-         
-       });
+  const onSubmit = async (data) => {
+    setLoading(true);
+    let res;
+    try {
+      if (option === "limit") {
+        res = await axiosInstance.patch("/api/expense/limit", data, {
+          withCredentials: true,
+        });
       } else {
-       res = await axiosInstance.post("/api/expense/create", data, {
-         withCredentials: true,
-       });
+        res = await axiosInstance.post("/api/expense/create", data, {
+          withCredentials: true,
+        });
       }
       toast.success(res?.data?.message);
-     fetchExpenseStats();
-     onClose();
-     
+      fetchExpenseStats();
+      fetchExpenseItems();
+      onClose();
+      setLoading(false);
     } catch (err) {
-     console.log(err, "from onsubmti flotting form");
-     toast.error(err.response.data.message);
-   }
- };
+      toast.error(err.response.data.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Box m={"md"}>
@@ -99,7 +103,7 @@ export default function FloatingForm({ onClose }) {
             </>
           )}
         </Stack>
-        <Button mt="md" radius="xl" type="submit">
+        <Button mt="md" radius="xl" type="submit" disabled={loading}>
           Add
         </Button>
       </form>

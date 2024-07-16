@@ -61,7 +61,7 @@ export default function SignUp() {
       });
 
       dispatch(setToken(res.data.token));
-      a
+  
       toast.success(res.data.message);
       setLoading(false);
       axiosInstance.defaults.headers.common["Authorization"] =  `Bearer ${res.data.token}`;

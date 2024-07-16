@@ -8,8 +8,8 @@ import Header from "../components/header/Header.jsx"
 const UserLayout = () => {
   return (
     <>
-    <UserHeader />
-    {/* <Header/> */}
+    {/* <UserHeader /> */}
+    <Header/>
     
     <Outlet />
     <FloatingButton />
