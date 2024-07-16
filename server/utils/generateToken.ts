@@ -9,6 +9,9 @@ const generateToken = (userId:Types.ObjectId, res:Response) => {
 
     res.cookie("token", token, {
         maxAge: 15 * 24 * 60 * 60 * 1000, // MS
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
     })
 
 return token;
