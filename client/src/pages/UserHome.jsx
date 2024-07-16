@@ -1,10 +1,11 @@
 import { Box, Container } from "@mantine/core";
 import LimitTracker from "../components/user/limitTracker/LimitTracker";
 import Tab from "../components/user/tab/Tab";
-import UserModal from "../components/modal/UserModal";
-import FloatingButton from "../components/user/floatingButton/FloatingButton.jsx"
+import { useApi } from "../context/ApiContext";
+import ExpenseList from "../components/user/expenseList/ExpenseList";
 
 export default function UserHome() {
+  const {activeTab, setActiveTab } = useApi();
 
   return (
     <Box>
@@ -12,7 +13,9 @@ export default function UserHome() {
         <Tab />
       </Box>
       <Container mx="auto" py="sm" size="md">
-        <LimitTracker />
+        {
+          activeTab === "stats" ? <LimitTracker /> : <ExpenseList />
+        }
       </Container>
     
     </Box>
