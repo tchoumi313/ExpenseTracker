@@ -29,7 +29,10 @@ app.use((0, cors_1.default)({
     ],
 }));
 // Handle preflight requests
-app.options("*", (0, cors_1.default)());
+app.options("*", (0, cors_1.default)({
+    origin: true,
+    credentials: true,
+}));
 // app.use(
 //   cors({
 //     origin: true,
