@@ -36,7 +36,7 @@ const createExpense = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const expense = yield expense_model_1.default.create({ name, amount, user: userId });
         return res
             .status(201)
-            .json({ expense, message: "Expense created successfully" });
+            .json({ expense, message: "Expense added successfully" });
     }
     catch (err) {
         return res.status(500).json({ message: err.message });

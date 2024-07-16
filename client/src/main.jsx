@@ -5,20 +5,22 @@ import { MantineProvider } from "@mantine/core";
 import "./index.css";
 import "@mantine/core/styles.css";
 import { Toaster } from "react-hot-toast";
-import store from "./redux/store"
-import {Provider} from "react-redux"
+import { Provider } from "react-redux";
 import { ApiProvider } from "./context/ApiContext";
-
+import { store, persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <MantineProvider>
-      <Provider store={store}>
-        <ApiProvider>
-          <App />
-        </ApiProvider>
-      </Provider>
-      <Toaster position="bottom-center" duration={500} />
-    </MantineProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <MantineProvider>
+          <ApiProvider>
+            <App />
+          </ApiProvider>
+          <Toaster position="bottom-center" duration={500} />
+        </MantineProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );

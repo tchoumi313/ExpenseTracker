@@ -19,6 +19,8 @@ import * as yup from "yup";
 import axiosInstance from "../../config/axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import {setToken} from "../../redux/auth/authSlice";
 
 const schema = yup.object().shape({
   email: yup
@@ -35,6 +37,7 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -52,6 +55,8 @@ export default function Login() {
         withCredentials: true,
       });
        toast.success(res.data.message);
+      dispatch(setToken(res.data.token));
+      axiosInstance.defaults.headers.common["Authorization"] =  `Bearer ${res.data.token}`;
       setLoading(false);
       navigate("/home");
     } catch (err) {

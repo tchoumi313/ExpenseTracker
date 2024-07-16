@@ -24,7 +24,7 @@ export const createExpense = async (req: Request, res: Response) => {
     const expense = await Expense.create({ name, amount, user: userId });
     return res
       .status(201)
-      .json({ expense, message: "Expense created successfully" });
+      .json({ expense, message: "Expense added successfully" });
   } catch (err: any) {
     return res.status(500).json({ message: err.message });
   }

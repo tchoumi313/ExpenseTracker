@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = exports.login = exports.signUp = void 0;
+exports.login = exports.signUp = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const generateToken_1 = __importDefault(require("../utils/generateToken"));
@@ -33,7 +33,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             email,
             password: hashedPassword,
         });
-        const token = (0, generateToken_1.default)(newUser._id, res);
+        const token = (0, generateToken_1.default)(newUser._id);
         yield newUser.save();
         return res.status(200).json({ message: "Signup successful", token });
     }
@@ -56,7 +56,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: "Incorrect password" });
         }
-        const token = (0, generateToken_1.default)(user._id, res);
+        const token = (0, generateToken_1.default)(user._id);
         return res.status(200).json({ message: "Login successful", token });
     }
     catch (err) {
@@ -64,17 +64,15 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
-const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const token = req.cookies.token;
-        if (!token) {
-            return res.status(400).json({ message: "No token found" });
-        }
-        res.clearCookie('token');
-        return res.status(200).json({ message: "Logged out successfully" });
-    }
-    catch (err) {
-        return res.status(500).json({ message: err.message });
-    }
-});
-exports.logout = logout;
+// export const logout = async (req : Request, res : Response) => {
+//     try{
+//         const token = req.cookies.token as string;
+//         if(!token){
+//             return res.status(400).json({message:"No token found"})
+//         }
+//         res.clearCookie('token')
+//         return res.status(200).json({message:"Logged out successfully"})
+//     }catch(err: any){
+//         return res.status(500).json({message:err.message});
+//     }
+// }

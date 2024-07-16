@@ -20,7 +20,7 @@ export const signUp = async (req: Request , res: Response) => {
         email,
         password:hashedPassword,
     })
-    const token =  generateToken(newUser._id,res);
+    const token =  generateToken(newUser._id);
     await newUser.save();
     return res.status(200).json({message:"Signup successful", token});
     }
@@ -44,23 +44,23 @@ export const login = async (req:Request, res:Response) =>{
         if(!isPasswordCorrect){
             return res.status(400).json({message:"Incorrect password"});
         }
-        const token = generateToken(user._id,res);
+        const token = generateToken(user._id);
         return res.status(200).json({message:"Login successful", token});
     }catch(err: any){
         return res.status(500).json({message:err.message});
     }
 }
 
-export const logout = async (req : Request, res : Response) => {
+// export const logout = async (req : Request, res : Response) => {
 
-    try{
-        const token = req.cookies.token as string;
-        if(!token){
-            return res.status(400).json({message:"No token found"})
-        }
-        res.clearCookie('token')
-        return res.status(200).json({message:"Logged out successfully"})
-    }catch(err: any){
-        return res.status(500).json({message:err.message});
-    }
-}
+//     try{
+//         const token = req.cookies.token as string;
+//         if(!token){
+//             return res.status(400).json({message:"No token found"})
+//         }
+//         res.clearCookie('token')
+//         return res.status(200).json({message:"Logged out successfully"})
+//     }catch(err: any){
+//         return res.status(500).json({message:err.message});
+//     }
+// }
