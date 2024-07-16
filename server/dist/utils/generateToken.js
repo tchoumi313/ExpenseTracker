@@ -11,7 +11,6 @@ const generateToken = (userId, res) => {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        domain: '.vercel.app',
     });
     return token;
 };
