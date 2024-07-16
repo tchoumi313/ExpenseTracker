@@ -51,8 +51,7 @@ export default function Login() {
       const res = await axiosInstance.post("api/auth/login", data, {
         withCredentials: true,
       });
-      console.log(res);
-      toast.success(res.data.message);
+       toast.success(res.data.message);
       setLoading(false);
       navigate("/home");
     } catch (err) {
