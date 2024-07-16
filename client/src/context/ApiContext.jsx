@@ -5,6 +5,8 @@ export const ApiContext = createContext()
 
 export const ApiProvider = ({children}) =>{
   const [expenseStats, setExpenseStats] = useState([]);
+    const [activeTab, setActiveTab] = useState("stats");
+
  
   const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -24,6 +26,8 @@ export const ApiProvider = ({children}) =>{
     setMonthIndex,
     year,
     setYear,
+    setActiveTab,
+    activeTab
   }
 
   return  <ApiContext.Provider value={value}>{children}</ApiContext.Provider>
