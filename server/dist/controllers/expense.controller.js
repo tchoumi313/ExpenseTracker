@@ -84,12 +84,12 @@ const getExpenseStats = (req, res) => __awaiter(void 0, void 0, void 0, function
     const { userId } = req.user;
     const { month, year } = req.query;
     try {
-        const limit = yield user_model_1.default.findById(userId).select('limit');
+        const userLimit = yield user_model_1.default.findById(userId).select('limit');
         const expenseByMonth = yield expense_model_1.default.find({ user: userId, createdAt: { $gte: new Date(year, month - 1, 1), $lt: new Date(year, month, 0) } });
         const totalExpense = expenseByMonth.reduce((acc, curr) => {
             return acc + curr.amount;
         }, 0);
-        res.status(200).json({ totalExpense, limit });
+        res.status(200).json({ totalExpense, limit: userLimit === null || userLimit === void 0 ? void 0 : userLimit.limit });
     }
     catch (err) {
         return res.status(500).json({ message: err.message });

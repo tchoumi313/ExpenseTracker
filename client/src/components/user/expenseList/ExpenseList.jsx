@@ -3,6 +3,7 @@ import { IconTrash } from '@tabler/icons-react';
 import { Container, Title, Card, Text, Button, Group, Flex } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../../config/axios';
+import toast from 'react-hot-toast';
  
  
 
@@ -19,13 +20,22 @@ export default function ExpenseList() {
             console.log(e);
         }
     }
-    console.log(expenses, "expenses");
-    useEffect(() => {
+     useEffect(() => {
         fetchExpenseItems();
     }, []);
-  const handleDelete = (id) => {
+  const handleDelete =async (id) => {
     console.log(`Delete expense with id: ${id}`);
-    // Add your delete logic here
+   try{
+     const res = await axiosInstance.delete(`/api/expense/${id}`, {
+      withCredentials: true,
+    });
+    toast.success('Expense deleted successfully');
+    fetchExpenseItems();
+
+   }catch(e){
+       console.log(e);
+   }
+   
   };
 
   return (
@@ -41,7 +51,7 @@ export default function ExpenseList() {
                 <Text size="sm" c="dimmed">{expense.createAt}</Text>
               </Flex>
               <Text>${expense.amount}</Text>
-              <Button color="red" style={{ minWidth: '50px' }} onClick={() => handleDelete(expense.id)} >
+              <Button color="red" style={{ minWidth: '50px' }} onClick={() => handleDelete(expense._id)} >
                 <IconTrash  size={20} stroke={2} />
                
               </Button>
