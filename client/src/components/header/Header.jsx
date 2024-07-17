@@ -3,16 +3,16 @@ import classes from "./Header.module.css";
 import ThemeSwitch from "../theme/ThemeSwitch";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@redux/auth/authSlice";
+import { logout, isLoggedIn } from "@redux/auth/authSlice";
 import axiosInstance from "../../config/axios";
 
 export default function Header() {
   const navigate = useNavigate();
-  const token = useSelector((store) => store.auth.token);
-   const dispatch = useDispatch();
+  const isAuth = useSelector((store) => store.auth.isAuth);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    console.log("logout");
+    dispatch(isLoggedIn(false));
     localStorage.removeItem("token");
     dispatch(logout());
     navigate("/", { replace: true });
@@ -34,7 +34,7 @@ export default function Header() {
           <Group justify="space-end" h="100%">
             <ThemeSwitch />
 
-            {token ? (
+            {isAuth ? (
               <Button size="md" radius="xl" onClick={handleLogout}>
                 Logout
               </Button>

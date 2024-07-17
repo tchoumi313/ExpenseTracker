@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.signUp = void 0;
+exports.checkUserIsAuth = exports.login = exports.signUp = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const generateToken_1 = __importDefault(require("../utils/generateToken"));
@@ -64,15 +64,19 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
-// export const logout = async (req : Request, res : Response) => {
-//     try{
-//         const token = req.cookies.token as string;
-//         if(!token){
-//             return res.status(400).json({message:"No token found"})
-//         }
-//         res.clearCookie('token')
-//         return res.status(200).json({message:"Logged out successfully"})
-//     }catch(err: any){
-//         return res.status(500).json({message:err.message});
-//     }
-// }
+const checkUserIsAuth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userId } = req.user;
+        const user = yield user_model_1.default.findById(userId);
+        if (!user) {
+            return res
+                .status(400)
+                .json({ message: "User not found", success: false });
+        }
+        return res.status(200).json({ message: "User found", success: true });
+    }
+    catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+});
+exports.checkUserIsAuth = checkUserIsAuth;
