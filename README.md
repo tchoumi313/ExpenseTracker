@@ -24,7 +24,7 @@ Expense-Tracker is a MERN stack project designed to help users manage their mont
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/RijoKsd/Expense-Tracker.git
+   git clone https://github.com/tchoumi313/ExpenseTracker.git
    ```
 2. Navigate to the project directory:
    ```sh
@@ -65,4 +65,4 @@ Contributions are welcome! Please fork the repository and create a pull request 
 This project is licensed under the MIT License.
 
 ## GitHub Repository
-[Expense-Tracker GitHub Repository](https://github.com/RijoKsd/Expense-Tracker)
+[Expense-Tracker GitHub Repository](https://github.com/tchoumi313/Expense-Tracker)
